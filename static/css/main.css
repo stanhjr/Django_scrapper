@@ -58,6 +58,9 @@ ul.messages {
 li.error {
     list-style: none;
 }
+div#refresh {
+    cursor: pointer;
+}
 
 @media (max-width: 576px) {
   .registration-cssave form {
