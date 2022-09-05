@@ -48,6 +48,16 @@ body {
   margin-top:20px;
 }
 
+ul.messages {
+    font-size: 11px;
+    color: red;
+    margin: 0;
+    padding: 0;
+}
+
+li.error {
+    list-style: none;
+}
 
 @media (max-width: 576px) {
   .registration-cssave form {
