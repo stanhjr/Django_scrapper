@@ -80,7 +80,6 @@ WSGI_APPLICATION = 'Django_scrapper.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'test',
         'USER': 'postgres',
         'PASSWORD': 'example',
