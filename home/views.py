@@ -3,11 +3,12 @@ import time
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import redirect
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView
+from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.contrib.auth import login as auth_login
@@ -45,7 +46,6 @@ class GetDataAPIView(APIView):
         count_items = self.request.user.get_number_items()
         print(count_items)
         # start_parser(count_items)
-        time.sleep(10)
         content = render_to_string(
             "product_list.html",
             request=request,
@@ -74,3 +74,20 @@ class FilterDataAPIView(APIView):
             }
         )
         return Response({"content": content})
+
+
+class ProductDetail(APIView):
+    """
+    Delete a product instance.
+    """
+
+    def get_object(self, pk):
+        try:
+            return OlxModel.objects.get(pk=pk)
+        except OlxModel.DoesNotExist:
+            raise Http404
+
+    def delete(self, request, pk, format=None):
+        product = self.get_object(pk)
+        product.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)

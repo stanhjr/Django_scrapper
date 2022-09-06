@@ -1,3 +1,4 @@
+{% load static %}
 <div class="product-container">
     {% for model in products %}
         <div class="product-item">
@@ -6,10 +7,11 @@
         <div class="product-tittle">{{ model.tittle }}</div>
         <div class="product-src"><img src="{{ model.src }}" alt="{{ model.src }}"></div>
         <div class="product-footer">
-        <div class="product-price">{{ model.price_grv }} <span>грн</span></div>
-        <button value="{{ model.pk }}">DELETE</button>
+        <div class="product-price">{{ model.get_price_grv }} <span>грн</span></div>
+        <button onclick="DeleteItem(this)" class="btn-delete" value="{{ model.pk }}">DELETE</button>
         </div>
         </div>
         </div>
     {% endfor %}
 </div>
+

@@ -24,6 +24,7 @@ class OlxModel(models.Model):
     def __str__(self):
         return f"{self.tittle} by {self.name}"
 
+    @property
     def get_price_grv(self):
         return self.price_grv / 100
 
