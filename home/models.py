@@ -13,6 +13,11 @@ class CustomUser(AbstractUser):
     def get_number_items(self):
         return int(self.user_category)
 
+    @property
+    def is_super_category(self):
+        if self.get_number_items() == 300:
+            return True
+
 
 class OlxModel(models.Model):
     tittle = models.CharField(max_length=2000)
@@ -32,4 +37,4 @@ class OlxModel(models.Model):
         return self.price_dollar / 100
 
     class Meta:
-        ordering = ("price_grv",)
+        ordering = ("-price_grv",)

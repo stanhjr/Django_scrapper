@@ -3,7 +3,9 @@
     {% for model in products %}
         <div class="product-item">
         <div class="product-card">
+            {% if user.is_super_category %}
         <div class="product-author">{{ model.name }}</div>
+            {% endif %}
         <div class="product-tittle">{{ model.tittle }}</div>
         <div class="product-src"><img src="{{ model.src }}" alt="{{ model.src }}"></div>
         <div class="product-footer">

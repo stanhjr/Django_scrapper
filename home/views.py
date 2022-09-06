@@ -1,5 +1,3 @@
-import time
-
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
@@ -15,7 +13,6 @@ from django.contrib.auth import login as auth_login
 
 from home.forms import LoginForm
 from home.models import OlxModel
-from home.serializers import OlxSerializer
 from home.tools import start_parser
 
 
@@ -41,11 +38,8 @@ class Login(LoginView):
 
 class GetDataAPIView(APIView):
     def get(self, request):
-        # OlxModel.objects.all().delete()
-        print(request.user)
         count_items = self.request.user.get_number_items()
-        print(count_items)
-        # start_parser(count_items)
+        start_parser(count_items)
         content = render_to_string(
             "product_list.html",
             request=request,
@@ -53,7 +47,6 @@ class GetDataAPIView(APIView):
                 'products': OlxModel.objects.all()[:count_items]
             }
         )
-        # s = OlxSerializer(instance=OlxModel.objects.all()[:100], many=True)
         return Response({"content": content})
 
 

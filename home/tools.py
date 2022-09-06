@@ -39,11 +39,11 @@ def get_one_page_data(url):
 
         price_grv, price_dollar = string_to_price(price)
         if name and title and src and price_grv and price_dollar and src:
-            olx_model = OlxModel.objects.create(tittle=title,
-                                                name=name,
-                                                price_dollar=price_dollar,
-                                                price_grv=price_grv,
-                                                src=src)
+            olx_model = OlxModel.objects.update_or_create(tittle=title,
+                                                          name=name,
+                                                          price_dollar=price_dollar,
+                                                          price_grv=price_grv,
+                                                          src=src)
 
             olx_model.save()
             print("save")
@@ -93,7 +93,6 @@ def get_all_links(count_of_links: int) -> list:
                 olx_url = f'{URL}?page={url}'
             else:
                 olx_url = URL
-            print(olx_url)
             futures.append(executor.submit(get_links_in_one_page, olx_url=olx_url))
         for future in concurrent.futures.as_completed(futures):
             futures += future.result()
@@ -113,4 +112,3 @@ def start_parser(count_of_links: int):
 if __name__ == '__main__':
     start_parser(count_of_links=320)
 
-print(time.time() - start)
