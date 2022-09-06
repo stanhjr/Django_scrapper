@@ -1,9 +1,15 @@
 <div class="product-container">
     {% for model in products %}
+        <div class="product-item">
+        <div class="product-card">
         <div class="product-author">{{ model.name }}</div>
         <div class="product-tittle">{{ model.tittle }}</div>
         <div class="product-src"><img src="{{ model.src }}" alt="{{ model.src }}"></div>
-        <div class="product-price">{{ model.price_grv }}</div>
+        <div class="product-footer">
+        <div class="product-price">{{ model.price_grv }} <span>грн</span></div>
         <button value="{{ model.pk }}">DELETE</button>
+        </div>
+        </div>
+        </div>
     {% endfor %}
 </div>

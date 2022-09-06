@@ -38,6 +38,5 @@ class LoginForm(AuthenticationForm):
             if self.user is None:
                 raise forms.ValidationError(message='username or password fields does not match')
 
-        # return self.cleaned_data
 
 

@@ -1,3 +1,5 @@
+import time
+
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
@@ -38,9 +40,12 @@ class Login(LoginView):
 
 class GetDataAPIView(APIView):
     def get(self, request):
-        OlxModel.objects.all().delete()
+        # OlxModel.objects.all().delete()
+        print(request.user)
         count_items = self.request.user.get_number_items()
-        start_parser(count_items)
+        print(count_items)
+        # start_parser(count_items)
+        time.sleep(10)
         content = render_to_string(
             "product_list.html",
             request=request,
