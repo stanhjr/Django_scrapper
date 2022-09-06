@@ -34,8 +34,10 @@ class LoginForm(AuthenticationForm):
         password = self.cleaned_data.get("password")
         if username and password:
             self.user = authenticate(username=username, password=password)
+
             if self.user is None:
                 raise forms.ValidationError(message='username or password fields does not match')
-        return self.cleaned_data
+
+        # return self.cleaned_data
 
 

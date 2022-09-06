@@ -67,3 +67,9 @@ div#refresh {
     padding:50px 20px;
   }
 }
+img {
+    width: 15%;
+}
+.content {
+    margin: 20px;
+}
