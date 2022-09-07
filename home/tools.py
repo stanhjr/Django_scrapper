@@ -39,18 +39,17 @@ def get_one_page_data(url):
 
         price_grv, price_dollar = string_to_price(price)
         if name and title and src and price_grv and price_dollar and src:
-            olx_model = OlxModel.objects.update_or_create(tittle=title,
-                                                          name=name,
-                                                          price_dollar=price_dollar,
-                                                          price_grv=price_grv,
-                                                          src=src)
-            print("save")
+            olx_model, test = OlxModel.objects.update_or_create(tittle=title,
+                                                                name=name,
+                                                                price_dollar=price_dollar,
+                                                                price_grv=price_grv,
+                                                                src=src)
+
             olx_model.save()
 
         return True
     except Exception as e:
         print(e)
-        print("not save")
         return False
 
 
@@ -59,7 +58,6 @@ def get_links(olx_url, count_links):
     count = 0
     count_pages = 1
     while count_links > count:
-        print(count)
         response = requests.get(olx_url)
         soup = BeautifulSoup(response.text, 'lxml')
         quotes = soup.find_all('h6')
@@ -104,7 +102,7 @@ def get_all_links(count_of_links: int) -> list:
 def start_parser(count_of_links: int):
     urls = get_all_links(count_of_links)
 
-    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
         futures = []
         for url in urls:
             futures.append(executor.submit(get_one_page_data, url=url))
@@ -113,3 +111,5 @@ def start_parser(count_of_links: int):
 if __name__ == '__main__':
     start_parser(count_of_links=320)
 
+
+# /home/stan/freelance/Django_scrapper/venv/bin/gunicorn --workers 5 --worker-class gevent Django_scrapper.wsgi:application

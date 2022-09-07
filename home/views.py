@@ -47,6 +47,7 @@ class GetDataAPIView(APIView):
                 'products': OlxModel.objects.all()[:count_items]
             }
         )
+        print("GO!")
         return Response({"content": content})
 
 
