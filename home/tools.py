@@ -44,12 +44,13 @@ def get_one_page_data(url):
                                                           price_dollar=price_dollar,
                                                           price_grv=price_grv,
                                                           src=src)
-
-            olx_model.save()
             print("save")
+            olx_model.save()
 
         return True
-    except:
+    except Exception as e:
+        print(e)
+        print("not save")
         return False
 
 
@@ -86,7 +87,7 @@ def get_links_in_one_page(olx_url):
 
 
 def get_all_links(count_of_links: int) -> list:
-    with concurrent.futures.ThreadPoolExecutor(max_workers=100) as executor:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
         futures = []
         for url in range(1, count_of_links // 50 + 1):
             if url > 1:
