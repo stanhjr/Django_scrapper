@@ -102,7 +102,7 @@ def get_all_links(count_of_links: int) -> list:
 def start_parser(count_of_links: int):
     urls = get_all_links(count_of_links)
 
-    with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
         futures = []
         for url in urls:
             futures.append(executor.submit(get_one_page_data, url=url))
