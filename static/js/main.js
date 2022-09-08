@@ -41,7 +41,6 @@ document.getElementById("selector-filter").onchange = () => {
 function DeleteItem(btnElem){
 	let xhr = new XMLHttpRequest();
 	let csrftoken = getCookie('csrftoken')
-	console.log(csrftoken)
 	xhr.open("DELETE", '/delete_item/' + btnElem.value + '/')
 	xhr.setRequestHeader("Accept", "application/json");
 	xhr.setRequestHeader("Content-Type", "application/json")
@@ -49,7 +48,6 @@ function DeleteItem(btnElem){
 	xhr.setRequestHeader("Access-Control-Allow-Origin", window.location.host)
 	xhr.send()
 	xhr.onload = () => {
-		console.log(xhr.status)
 		if (xhr.status === 204){
 			btnElem.parentElement.parentElement.parentElement.remove()
 		}
