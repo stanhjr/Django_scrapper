@@ -11,9 +11,11 @@ document.getElementById("refresh").onclick = () => {
 	xhr.onload = () => {
 		try {
 			let data = JSON.parse(xhr.responseText)
-		document.getElementsByClassName("content")[0].innerHTML = data["content"]
-		document.getElementsByTagName('body')[0].classList.remove("loader-visible");
+			document.getElementsByClassName("content")[0].innerHTML = data["content"]
+			document.getElementsByTagName('body')[0].classList.remove("loader-visible");
 		}catch (e){
+			document.getElementsByClassName("content")[0].innerHTML = "Timeout exceeded, please try refresh later"
+			document.getElementsByTagName('body')[0].classList.remove("loader-visible");
 			console.log(e)
 		}
 
