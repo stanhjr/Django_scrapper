@@ -9,10 +9,13 @@ document.getElementById("refresh").onclick = () => {
 	xhr.setRequestHeader("Access-Control-Allow-Origin", window.location.host)
 	xhr.send()
 	xhr.onload = () => {
-        let data = JSON.parse(xhr.responseText)
+		try {
+			let data = JSON.parse(xhr.responseText)
 		document.getElementsByClassName("content")[0].innerHTML = data["content"]
 		document.getElementsByTagName('body')[0].classList.remove("loader-visible");
-
+		}catch (e){
+			console.log(e)
+		}
 
     }
 }
@@ -33,18 +36,6 @@ document.getElementById("selector-filter").onchange = () => {
 }
 
 
-function setDeleteBtn(){
-	let btnDeleteList = document.getElementsByClassName("btn-delete")
-	for (let i = 0; i < btnDeleteList.length; i++ ){
-		let btnDelete = document.getElementsByClassName("btn-delete")[i]
-		document.getElementsByClassName("btn-delete")[i].onclick = () => {
-			DeleteItem(document.getElementsByClassName("btn-delete")[i])
-		}
-	}
-
-}
-
-
 function DeleteItem(btnElem){
 	let xhr = new XMLHttpRequest();
 	let csrftoken = getCookie('csrftoken')
@@ -60,10 +51,7 @@ function DeleteItem(btnElem){
 		if (xhr.status === 204){
 			btnElem.parentElement.parentElement.parentElement.remove()
 		}
-
-
     }
-
 }
 
 
